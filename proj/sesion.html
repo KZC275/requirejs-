@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+<form>
+    用户名：<input type="text" name="username" placeholder="请输入用户名">
+    </br>
+    用户名：<input type="text" name="psw" placeholder="请输入密码">
+    <input type="submit" value="提交">
+</form>
+<script src='js/jquery.js'></script>
+<script>
+	$('input').eq(2).click(function(event) {
+		/* Act on the event */
+		$.ajax({
+			url: 'sesion.php',
+			type: 'post',
+			dataType: 'json',
+			data:{username:$('input').eq(0).val()},
+		})
+		.done(function(mesg) {
+			console.log(mesg);
+			// window.location.href='http://www.baidu.com';
+		})
+		.fail(function(mesg) {
+			console.log(mesg);
+		})
+		.always(function() {
+			console.log("complete");
+		});
+		return false;
+
+	});
+	
+	
+</script>
+</body>
+</html>

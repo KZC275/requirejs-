@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>注册页面</title>
+    <link rel="stylesheet" href="css/res.css">
+    <script src="js/AjaxBase.js"></script>
+    <script>
+        //ajax(json)
+        onload = function(){
+            var oName = document.getElementById('username');
+            var oPsw = document.getElementById('password');
+          
+            var oBtn = document.getElementById('submit');
+
+            oBtn.onclick = function(){
+                var name = oName.value;
+                var psw = oPsw.value;
+                ajax({
+                    method:"POST",
+                    url:'php/reg.php',
+                    data:{
+                        "username":name,
+                        "password":psw
+                    },
+                    callback:function(str){
+                        alert(str);
+                    }
+                })
+            }
+
+        }
+    </script>
+</head>
+ <body>
+     <header>
+         <div class="wrap">
+             <a href="">
+                 <img src="img/loginlogo.jpg" alt="">
+             </a>
+             <p>您好，欢迎光临1号店！</p>
+         </div>
+     </header>
+     <div class="img">
+         <img src="img/loginbg.jpg" alt="">
+     </div>
+     <div class="login">
+         <div class="wrap">
+             <h4>1号店用户注册<a href="">登录</a></h4>
+             <form>
+                 <input type="text" placeholder="请输入用户名" id="username" /> <br />
+                 <input type="password" placeholder="请输入密码" id="password" /> <br />
+                  <br />
+                 <input type="button" value="注册" id="submit">
+             </form>
+         </div>
+     </div>
+    
+ </body>
+</html>

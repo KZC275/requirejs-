@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>登录页面</title>
+    <link rel="stylesheet" href="css/login.css">
+    <script src="js/AjaxBase.js"></script>
+    <script src="js/cookiebase.js"></script>
+    <script src="js/jquery.js"></script>
+    <script>
+        //ajax(json)
+        onload = function(){
+            var oName = document.getElementById('username');
+            var oPsw = document.getElementById('password');
+            var oBtn = document.getElementById('submit');
+
+            oBtn.onclick = function(){
+                var name = oName.value;
+                var psw = oPsw.value;
+                ajax({
+                    method:"POST",
+                    url:'php/login.php',
+                    data:{
+                        "username":name,
+                        "password":psw,
+                    },
+                    callback:function(str){
+                        alert(str);
+                        if(str=='登录成功'){//登录成功之后把用户信息写进json文件
+                            $.ajax({
+                                url: 'http://localhost/11proj/proj/php/userinformation.php?type=send',
+                                type: 'get',
+                                dataType: 'json',
+                                data: {'username': name,'psw':psw},
+                            })
+                            .done(function(mesg) {
+                                console.log(mesg);
+                            })
+                            .fail(function(mesg) {
+                                console.log(mesg);
+                            })
+                            .always(function() {
+                                console.log("complete");
+                            });
+                            
+                        }
+                    }
+                })
+            }
+
+        }
+    </script>
+</head>
+<body>
+    <header>
+        <div class="wrap">
+            <a href="">
+                <img src="img/loginlogo.jpg" alt="">
+            </a>
+            <p>您好，欢迎光临1号店！</p>
+        </div>
+    </header>
+    <div class="img">
+        <img src="img/loginbg.jpg" alt="">
+    </div>
+    <div class="login">
+        <div class="wrap">
+            <h4>1号店用户登录<a href="">注册新账号</a></h4>
+            <form>
+                <input type="text" placeholder="请输入用户名" id="username" /> <br />
+                <input type="password" placeholder="请输入密码" id="password" /> <br />
+                 <br />
+                <input type="button" value="登录" id="submit">
+            </form>
+        </div>
+    </div>
+   
+</body>
+</html>
